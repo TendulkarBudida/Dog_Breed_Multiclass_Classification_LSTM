@@ -1,11 +1,15 @@
-# Dog Breed Multiclass Classification with LSTM
+# Dog Breed Classification Project
 
-This project focuses on classifying dog breeds using a Long Short-Term Memory (LSTM) neural network. The implementation is done in Python, leveraging libraries such as TensorFlow and Keras.
+This project focuses on classifying dog breeds using a Convolutional Neural Network (CNN) based on the MobileNetV2 architecture. The implementation is done in Python, leveraging libraries such as TensorFlow and Keras.
 
 ## Project Structure
 
-- `dog_optimized.py`: The main script that contains the LSTM model implementation and training logic.
-- `images/`: Directory containing sample images of different dog breeds used for training and testing.
+- `_dog_optimized.py`: The main script that contains the CNN model implementation, training logic, and data preprocessing.
+- `DogBreedApp.py`: A PyQt5-based graphical user interface for real-time dog breed classification using a webcam or uploaded images.
+- `_predict.py`: A script for making predictions on images, including an option to capture images from a webcam.
+- `dog_breed_classifier.keras`: The saved trained model (generated after running `_dog_optimized.py`).
+- `class_labels.json`: A JSON file containing the mapping between class indices and breed names.
+- `README.md`: This file, providing an overview of the project and instructions.
 
 ## Requirements
 
@@ -13,48 +17,65 @@ This project focuses on classifying dog breeds using a Long Short-Term Memory (L
 - TensorFlow
 - Keras
 - NumPy
-- Pandas
+- OpenCV (cv2)
+- PyQt5
 - Matplotlib
 
 You can install the required packages using:
 ```bash
-pip install tensorflow keras numpy pandas matplotlib
+pip install tensorflow keras numpy opencv-python pyqt5 matplotlib
 ```
 
 ## Usage
 
-1. **Prepare the Dataset**: Ensure that your dataset is organized and placed in the `images/` directory. Each breed should have its own subdirectory containing images of that breed.
+1. **Prepare the Dataset**: Ensure that your dataset is organized in the `dog-breeds` directory. Each breed should have its own subdirectory containing images of that breed.
 
-2. **Run the Script**: Execute the `dog_optimized.py` script to start training the LSTM model.
+2. **Train the Model**: Run the `_dog_optimized.py` script to train the CNN model.
 ```bash
-python dog_optimized.py
+python _dog_optimized.py
 ```
 
-3. **Evaluate the Model**: After training, the script will evaluate the model's performance on the test dataset and output the results.
+3. **Use the GUI Application**: After training, you can use the graphical interface for real-time classification:
+```bash
+python DogBreedApp.py
+```
+
+4. **Make Predictions**: You can also use the `_predict.py` script to make predictions on individual images or capture from a webcam:
+```bash
+python _predict.py
+```
 
 ## Model Architecture
 
-The LSTM model in `dog_optimized.py` is designed to handle sequential data and extract temporal features from the input images. The architecture includes:
+The model in `_dog_optimized.py` uses transfer learning with MobileNetV2 as the base model. The architecture includes:
 
-- Input Layer
-- LSTM Layers
-- Dense Layers
-- Output Layer with Softmax Activation
+- MobileNetV2 base (pre-trained on ImageNet)
+- Global Average Pooling
+- Dense layers with dropout for fine-tuning
+- Output layer with softmax activation
+
+## GUI Application Features
+
+The `DogBreedApp.py` provides a user-friendly interface with the following features:
+- Real-time webcam feed
+- Capture image from webcam for classification
+- Upload image from file for classification
+- Display of predicted dog breed
 
 ## Results
 
-The model's performance is evaluated using metrics such as accuracy, precision, and recall. The results are visualized using Matplotlib.
-
+The model's performance is evaluated using validation accuracy. After training, the model is saved as `dog_breed_classifier.keras`, and class labels are saved in `class_labels.json`.
 
 ## Contributing
 
-Feel free to fork this repository and contribute by submitting pull requests. For major changes, please open an issue first to discuss what you would like to change.
+Contributions to this project are welcome. Please feel free to submit pull requests or open issues to suggest improvements or report bugs.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is open-source and available under the MIT License.
 
 ## Acknowledgements
 
 - TensorFlow and Keras documentation
+- MobileNetV2 paper and implementation
 - Open-source datasets for dog breed images
