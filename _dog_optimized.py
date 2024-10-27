@@ -1,12 +1,29 @@
-import os
-import numpy as np
+
+
+import json
 import tensorflow as tf
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.applications import MobileNetV2
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, GlobalAveragePooling2D, Dropout
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
+from keras.preprocessing.image import ImageDataGenerator
+from keras.applications import MobileNetV2
+from keras.models import Sequential
+from keras.layers import Dense, GlobalAveragePooling2D, Dropout
+from keras.optimizers import Adam
+from keras.callbacks import EarlyStopping, ReduceLROnPlateau
+
+
+# Suppress TensorFlow deprecation warnings
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+
+# Suppress TensorFlow warnings
+tf.get_logger().setLevel('ERROR')
+
+# Set memory growth for GPUs to avoid memory allocation issues
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+    try:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+    except RuntimeError as e:
+        print(e)
 
 # Set dataset path
 dataset_path = 'dog-breeds'
@@ -78,3 +95,13 @@ history = model.fit(
 # Evaluate the model
 loss, accuracy = model.evaluate(validation_generator)
 print(f'Validation Accuracy: {accuracy * 100:.2f}%')
+
+# Save the model in the recommended .keras format
+model.save('dog_breed_classifier.keras')
+print("Model saved as 'dog_breed_classifier.keras'")
+
+# Save the class labels as a JSON file
+class_labels = train_generator.class_indices
+with open('class_labels.json', 'w') as f:
+    json.dump(class_labels, f)
+print("Class labels saved as 'class_labels.json'")

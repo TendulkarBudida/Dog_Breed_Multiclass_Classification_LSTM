@@ -45,6 +45,7 @@ The LSTM model in `dog_optimized.py` is designed to handle sequential data and e
 
 The model's performance is evaluated using metrics such as accuracy, precision, and recall. The results are visualized using Matplotlib.
 
+
 ## Contributing
 
 Feel free to fork this repository and contribute by submitting pull requests. For major changes, please open an issue first to discuss what you would like to change.
