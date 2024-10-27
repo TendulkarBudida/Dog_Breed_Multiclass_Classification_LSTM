@@ -10,6 +10,7 @@ This project focuses on classifying dog breeds using a Convolutional Neural Netw
 - `dog_breed_classifier.keras`: The saved trained model (generated after running `_dog_optimized.py`).
 - `class_labels.json`: A JSON file containing the mapping between class indices and breed names.
 - `README.md`: This file, providing an overview of the project and instructions.
+- `requirements.txt`: A list of Python dependencies for the project.
 
 ## Requirements
 
@@ -19,11 +20,10 @@ This project focuses on classifying dog breeds using a Convolutional Neural Netw
 - NumPy
 - OpenCV (cv2)
 - PyQt5
-- Matplotlib
 
 You can install the required packages using:
 ```bash
-pip install tensorflow keras numpy opencv-python pyqt5 matplotlib
+pip install -r requirements.txt
 ```
 
 ## Usage
